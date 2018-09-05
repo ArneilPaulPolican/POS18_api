@@ -44,6 +44,7 @@ namespace POSApi.ApiControllers
                                 SalesLineTimeStamp = d.SalesLineTimeStamp,
                                 UserId = d.UserId,
                                 Preparation = d.Preparation,
+                                IsPrinted = d.IsPrinted
                             };
             return salesLine.ToList();
         }
@@ -79,6 +80,7 @@ namespace POSApi.ApiControllers
                             SalesLineTimeStamp = d.SalesLineTimeStamp,
                             UserId = d.UserId,
                             Preparation = d.Preparation,
+                            IsPrinted = d.IsPrinted
                         };
 
             return sales.ToList();
@@ -115,6 +117,7 @@ namespace POSApi.ApiControllers
                             SalesLineTimeStamp = d.SalesLineTimeStamp,
                             UserId = d.UserId,
                             Preparation = d.Preparation,
+                            IsPrinted = d.IsPrinted
 
                         };
             return (TrnSalesLine)sales.FirstOrDefault();
@@ -150,6 +153,7 @@ namespace POSApi.ApiControllers
                                 SalesLineTimeStamp = d.SalesLineTimeStamp,
                                 UserId = d.UserId,
                                 Preparation = d.Preparation,
+                                IsPrinted = d.IsPrinted
                             };
             return salesLine.ToList();
         }
@@ -183,8 +187,10 @@ namespace POSApi.ApiControllers
                 newSalesLine.SalesLineTimeStamp = DateTime.Today;
                 newSalesLine.UserId = UserId();
                 newSalesLine.Preparation = objSalesLine.Preparation;
+                newSalesLine.IsPrinted = objSalesLine.IsPrinted;
                 db.TrnSalesLines.InsertOnSubmit(newSalesLine);
                 db.SubmitChanges();
+
                 return Request.CreateResponse(HttpStatusCode.OK, newSalesLine.Id);
             }
             catch (Exception e)
@@ -226,6 +232,7 @@ namespace POSApi.ApiControllers
                     updateSalesLine.SalesLineTimeStamp = salesLine.SalesLineTimeStamp;
                     updateSalesLine.UserId = salesLine.UserId;
                     updateSalesLine.Preparation = salesLine.Preparation;
+                    updateSalesLine.IsPrinted = salesLine.IsPrinted;
                     db.SubmitChanges();
 
                     return Request.CreateResponse(HttpStatusCode.OK);
