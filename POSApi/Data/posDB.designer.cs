@@ -183,7 +183,7 @@ namespace POSApi.Data
     #endregion
 		
 		public posDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["pos17_WConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
