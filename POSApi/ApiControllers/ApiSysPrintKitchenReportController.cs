@@ -107,6 +107,8 @@ namespace POSApi.ApiControllers
                 // ======
                 if (salesLine.Any())
                 {
+                    Debug.WriteLine("sales line");
+
                     // ============
                     // Order Number
                     // ============
@@ -229,96 +231,97 @@ namespace POSApi.ApiControllers
                     };
                     graphics.DrawString(transactionDateData, fontArial8Regular, Brushes.Black, transDateRectangle, drawFormatLeft);
                     y += transDateRectangle.Size.Height + 20;
+
+
+                    // ====================
+                    // Line Points Settings
+                    // ====================
+                    Point firstLineFirstPoint = new Point(0, Convert.ToInt32(y) - 9);
+                    Point firstLineSecondPoint = new Point(500, Convert.ToInt32(y) - 9);
+
+                    graphics.DrawLine(blackPen, firstLineFirstPoint, firstLineSecondPoint);
+
+                    String itemLabel = "ITEM";
+                    graphics.DrawString(itemLabel, fontArial8Regular, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+
+                    String amountLabel = "Unit";
+                    graphics.DrawString(amountLabel, fontArial8Regular, drawBrush, new RectangleF(x + 150.0F, y, width, height), drawFormatLeft);
+
+                    String qtyLabel = "Qty.";
+                    graphics.DrawString(qtyLabel, fontArial8Regular, drawBrush, new RectangleF(x + 220.0F, y, width, height), drawFormatLeft);
+                    y += graphics.MeasureString(itemLabel, fontArial8Regular).Height + 5.0F;
+
+                    String itemData = salesLine.FirstOrDefault().MstItem.ItemDescription;
+                    RectangleF itemDataRectangle = new RectangleF
+                    {
+                        X = x,
+                        Y = y,
+                        Size = new Size(150, ((int)graphics.MeasureString(itemData, fontArial8Regular, 150, StringFormat.GenericTypographic).Height))
+                    };
+                    graphics.DrawString(itemData, fontArial8Regular, Brushes.Black, itemDataRectangle, drawFormatLeft);
+
+                    String unitData = salesLine.FirstOrDefault().MstItem.MstUnit.Unit;
+                    RectangleF unitDataRectangle = new RectangleF
+                    {
+                        X = x + 150.0F,
+                        Y = y,
+                        Size = new Size(150, ((int)graphics.MeasureString(unitData, fontArial8Regular, 150, StringFormat.GenericTypographic).Height))
+                    };
+                    graphics.DrawString(unitData, fontArial8Regular, Brushes.Black, unitDataRectangle, drawFormatLeft);
+
+                    String qtyData = salesLine.FirstOrDefault().Quantity.ToString("#,##0.00");
+                    RectangleF qtyDataRectangle = new RectangleF
+                    {
+                        X = x + 90.0F,
+                        Y = y,
+                        Size = new Size(150, ((int)graphics.MeasureString(qtyData, fontArial8Regular, 150, StringFormat.GenericTypographic).Height))
+                    };
+                    graphics.DrawString(qtyData, fontArial8Regular, Brushes.Black, qtyDataRectangle, drawFormatRight);
+                    y += qtyDataRectangle.Size.Height + 15.0F;
+
+                    Point secondLineFirstPoint = new Point(0, Convert.ToInt32(y) + 5);
+                    Point secondLineSecondPoint = new Point(500, Convert.ToInt32(y) + 5);
+
+                    graphics.DrawLine(blackPen, secondLineFirstPoint, secondLineSecondPoint);
+
+                    String preparationLabel = "Preparation:";
+                    graphics.DrawString(preparationLabel, fontArial8Regular, drawBrush, new RectangleF(x, y + 15F, width, height), drawFormatLeft);
+                    y += graphics.MeasureString(preparationLabel, fontArial8Regular).Height + 15.0F;
+
+                    String preparationData = salesLine.FirstOrDefault().Preparation;
+                    graphics.DrawString(preparationData, fontArial8Regular, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+                    y += graphics.MeasureString(preparationData, fontArial8Regular).Height + 5.0F;
+
+                    Point thirdLineFirstPoint = new Point(0, Convert.ToInt32(y) + 5);
+                    Point thirdLineSecondPoint = new Point(500, Convert.ToInt32(y) + 5);
+
+                    graphics.DrawLine(blackPen, thirdLineFirstPoint, thirdLineSecondPoint);
+
+                    // ========
+                    // Order By
+                    // ========
+                    String orderByLabel = "Order By:";
+                    RectangleF orderByLabelRectangle = new RectangleF
+                    {
+                        X = x,
+                        Y = y + 15F,
+                        Size = new Size(245, ((int)graphics.MeasureString(orderByLabel, fontArial8Regular, 245, StringFormat.GenericTypographic).Height))
+                    };
+                    graphics.DrawString(orderByLabel, fontArial8Regular, Brushes.Black, orderByLabelRectangle, drawFormatLeft);
+
+                    String orderByData = salesLine.FirstOrDefault().TrnSale.MstUser.FullName;
+                    RectangleF orderByDataRectangle = new RectangleF
+                    {
+                        X = 120,
+                        Y = y + 15F,
+                        Size = new Size(245, ((int)graphics.MeasureString(orderByData, fontArial8Regular, 245, StringFormat.GenericTypographic).Height))
+                    };
+                    graphics.DrawString(orderByData, fontArial8Regular, Brushes.Black, orderByDataRectangle, drawFormatLeft);
+                    y += orderByDataRectangle.Size.Height;
+
+                    salesLine.FirstOrDefault().IsPrinted = true;
+                    db.SubmitChanges();
                 }
-
-                // ====================
-                // Line Points Settings
-                // ====================
-                Point firstLineFirstPoint = new Point(0, Convert.ToInt32(y) - 9);
-                Point firstLineSecondPoint = new Point(500, Convert.ToInt32(y) - 9);
-
-                graphics.DrawLine(blackPen, firstLineFirstPoint, firstLineSecondPoint);
-
-                String itemLabel = "ITEM";
-                graphics.DrawString(itemLabel, fontArial8Regular, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-
-                String amountLabel = "Unit";
-                graphics.DrawString(amountLabel, fontArial8Regular, drawBrush, new RectangleF(x + 150.0F, y, width, height), drawFormatLeft);
-
-                String qtyLabel = "Qty.";
-                graphics.DrawString(qtyLabel, fontArial8Regular, drawBrush, new RectangleF(x + 220.0F, y, width, height), drawFormatLeft);
-                y += graphics.MeasureString(itemLabel, fontArial8Regular).Height + 5.0F;
-
-                String itemData = salesLine.FirstOrDefault().MstItem.ItemDescription;
-                RectangleF itemDataRectangle = new RectangleF
-                {
-                    X = x,
-                    Y = y,
-                    Size = new Size(150, ((int)graphics.MeasureString(itemData, fontArial8Regular, 150, StringFormat.GenericTypographic).Height))
-                };
-                graphics.DrawString(itemData, fontArial8Regular, Brushes.Black, itemDataRectangle, drawFormatLeft);
-
-                String unitData = salesLine.FirstOrDefault().MstItem.MstUnit.Unit;
-                RectangleF unitDataRectangle = new RectangleF
-                {
-                    X = x + 150.0F,
-                    Y = y,
-                    Size = new Size(150, ((int)graphics.MeasureString(unitData, fontArial8Regular, 150, StringFormat.GenericTypographic).Height))
-                };
-                graphics.DrawString(unitData, fontArial8Regular, Brushes.Black, unitDataRectangle, drawFormatLeft);
-
-                String qtyData = salesLine.FirstOrDefault().Quantity.ToString("#,##0.00");
-                RectangleF qtyDataRectangle = new RectangleF
-                {
-                    X = x + 90.0F,
-                    Y = y,
-                    Size = new Size(150, ((int)graphics.MeasureString(qtyData, fontArial8Regular, 150, StringFormat.GenericTypographic).Height))
-                };
-                graphics.DrawString(qtyData, fontArial8Regular, Brushes.Black, qtyDataRectangle, drawFormatRight);
-                y += qtyDataRectangle.Size.Height + 15.0F;
-
-                Point secondLineFirstPoint = new Point(0, Convert.ToInt32(y) + 5);
-                Point secondLineSecondPoint = new Point(500, Convert.ToInt32(y) + 5);
-
-                graphics.DrawLine(blackPen, secondLineFirstPoint, secondLineSecondPoint);
-
-                String preparationLabel = "Preparation:";
-                graphics.DrawString(preparationLabel, fontArial8Regular, drawBrush, new RectangleF(x, y + 15F, width, height), drawFormatLeft);
-                y += graphics.MeasureString(preparationLabel, fontArial8Regular).Height + 15.0F;
-
-                String preparationData = salesLine.FirstOrDefault().Preparation;
-                graphics.DrawString(preparationData, fontArial8Regular, drawBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                y += graphics.MeasureString(preparationData, fontArial8Regular).Height + 5.0F;
-
-                Point thirdLineFirstPoint = new Point(0, Convert.ToInt32(y) + 5);
-                Point thirdLineSecondPoint = new Point(500, Convert.ToInt32(y) + 5);
-
-                graphics.DrawLine(blackPen, thirdLineFirstPoint, thirdLineSecondPoint);
-
-                // ========
-                // Order By
-                // ========
-                String orderByLabel = "Order By:";
-                RectangleF orderByLabelRectangle = new RectangleF
-                {
-                    X = x,
-                    Y = y + 15F,
-                    Size = new Size(245, ((int)graphics.MeasureString(orderByLabel, fontArial8Regular, 245, StringFormat.GenericTypographic).Height))
-                };
-                graphics.DrawString(orderByLabel, fontArial8Regular, Brushes.Black, orderByLabelRectangle, drawFormatLeft);
-
-                String orderByData = salesLine.FirstOrDefault().TrnSale.MstUser.FullName;
-                RectangleF orderByDataRectangle = new RectangleF
-                {
-                    X = 120,
-                    Y = y + 15F,
-                    Size = new Size(245, ((int)graphics.MeasureString(orderByData, fontArial8Regular, 245, StringFormat.GenericTypographic).Height))
-                };
-                graphics.DrawString(orderByData, fontArial8Regular, Brushes.Black, orderByDataRectangle, drawFormatLeft);
-                y += orderByDataRectangle.Size.Height;
-
-                salesLine.FirstOrDefault().IsPrinted = true;
-                db.SubmitChanges();
             }
         }
 
