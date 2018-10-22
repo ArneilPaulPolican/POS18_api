@@ -187,7 +187,7 @@ namespace POSApi.ApiControllers
                 newSalesLine.SalesLineTimeStamp = DateTime.Today;
                 newSalesLine.UserId = UserId();
                 newSalesLine.Preparation = objSalesLine.Preparation;
-                newSalesLine.IsPrinted = objSalesLine.IsPrinted;
+                newSalesLine.IsPrinted = false;
                 db.TrnSalesLines.InsertOnSubmit(newSalesLine);
                 db.SubmitChanges();
 
@@ -232,7 +232,7 @@ namespace POSApi.ApiControllers
                     updateSalesLine.SalesLineTimeStamp = salesLine.SalesLineTimeStamp;
                     updateSalesLine.UserId = salesLine.UserId;
                     updateSalesLine.Preparation = salesLine.Preparation;
-                    updateSalesLine.IsPrinted = salesLine.IsPrinted;
+                    updateSalesLine.IsPrinted = false;
                     db.SubmitChanges();
 
                     return Request.CreateResponse(HttpStatusCode.OK);

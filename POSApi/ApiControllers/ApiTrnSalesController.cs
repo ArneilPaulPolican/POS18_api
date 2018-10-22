@@ -251,7 +251,7 @@ namespace POSApi.ApiControllers
                 {
                     var updateSales = sales.FirstOrDefault();
                     updateSales.PeriodId = sale.PeriodId;
-                    updateSales.SalesDate = sale.SalesDate;
+                    updateSales.SalesDate = Convert.ToDateTime(sale.SalesDate);
                     updateSales.SalesNumber = sale.SalesNumber;
                     updateSales.ManualInvoiceNumber = sale.ManualInvoiceNumber;
                     updateSales.Amount = sale.Amount;
