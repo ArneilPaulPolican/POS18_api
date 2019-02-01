@@ -14,5 +14,12 @@ namespace POSApi.Controllers
 
             return View();
         }
+
+        public ActionResult Users()
+        {
+            ViewBag.Title = "Users";
+
+            return View();
+        }
     }
 }
