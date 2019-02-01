@@ -38,7 +38,7 @@ namespace POSApi.ApiControllers
         //*************
         //LIST USER 
         //*************
-        [HttpGet, Route("list")]
+        [AllowAnonymous, HttpGet, Route("list")]
         public List<Entities.MstUser> listUser()
         {
             var user = from d in db.MstUsers

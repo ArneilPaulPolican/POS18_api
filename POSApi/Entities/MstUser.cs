@@ -8,6 +8,7 @@ namespace POSApi.Entities
     public class MstUser
     {
         public Int32 Id { get; set; }
+        public String UserId { get; set; }
         public String UserName { get; set; }
         public String Password { get; set; }
         public String FullName { get; set; }

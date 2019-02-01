@@ -30,7 +30,8 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
+    <IncludeIisSettings>false</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -196,6 +197,7 @@
     <Compile Include="ApiControllers\ApiMstUnitController.cs" />
     <Compile Include="ApiControllers\ApiMstUserController.cs" />
     <Compile Include="ApiControllers\ApiMstUserFormController.cs" />
+    <Compile Include="ApiControllers\ApiPOSTabUsersController.cs" />
     <Compile Include="ApiControllers\ApiSysPrintKitchenReportController.cs" />
     <Compile Include="ApiControllers\ApiSysPrintOfficialReceiptController.cs" />
     <Compile Include="ApiControllers\ApiSysPrintSalesOrderController.cs" />
@@ -312,8 +314,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\wijmo.css" />
+    <Content Include="Content\wijmo.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -359,7 +367,17 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\wijmo.grid.js" />
+    <Content Include="Scripts\wijmo.grid.min.js" />
+    <Content Include="Scripts\wijmo.input.js" />
+    <Content Include="Scripts\wijmo.input.min.js" />
+    <Content Include="Scripts\wijmo.js" />
+    <Content Include="Scripts\wijmo.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

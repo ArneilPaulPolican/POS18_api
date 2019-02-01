@@ -39,8 +39,7 @@ namespace POSApi.ApiControllers
 
                 PrinterSettings ps = new PrinterSettings
                 {
-                    //PrinterName = "EPSON TM-T81 Receipt"
-                    PrinterName = "EPSON TM-U220 Receipt"
+                    PrinterName = "EPSON TM-T81 Receipt"
                 };
 
                 PrintDocument pd = new PrintDocument();
@@ -107,8 +106,6 @@ namespace POSApi.ApiControllers
                 // ======
                 if (salesLine.Any())
                 {
-                    Debug.WriteLine("sales line");
-
                     // ============
                     // Order Number
                     // ============
@@ -337,8 +334,7 @@ namespace POSApi.ApiControllers
 
                 PrinterSettings ps = new PrinterSettings
                 {
-                    //PrinterName = "EPSON TM-T81 Receipt"
-                    PrinterName = "EPSON TM-U220 Receipt"
+                    PrinterName = "EPSON TM-T81 Receipt"
                 };
 
                 PrintDocument pd = new PrintDocument();

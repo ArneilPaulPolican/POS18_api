@@ -329,61 +329,27 @@ namespace POSApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
+            Data.posDBDataContext db = new Data.posDBDataContext();
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            var currentUser = from d in db.MstUsers where d.UserName.Equals(model.UserName) select d;
+            if(!currentUser.Any())
+            {
+                return BadRequest("Username does not exist.");
+            }
+
+            var user = new ApplicationUser() { UserName = currentUser.FirstOrDefault().UserName, Email = currentUser.FirstOrDefault().UserName };
+            IdentityResult result = await UserManager.CreateAsync(user, currentUser.FirstOrDefault().Password);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
-            // ===============
-            // DB Data Context
-            // ===============
-            Data.posDBDataContext db = new Data.posDBDataContext();
-
-            // ==============================
-            // Get the registered ASP User Id
-            // ==============================
             string registeredAspUserId = user.Id;
-
-            // ===============
-            // Insert New User
-            // ===============
-            Data.MstUser newUser = new Data.MstUser()
+            if (currentUser.Any())
             {
-                UserName = model.UserName,
-                Password = model.Password,
-                FullName = model.FullName,
-                UserCardNumber = "0",
-                EntryUserId = 0,
-                EntryDateTime = DateTime.Now,
-                UpdateUserId = 0,
-                UpdateDateTime = DateTime.Now,
-                IsLocked = false,
-                AspNetUserId = registeredAspUserId
-            };
-
-            db.MstUsers.InsertOnSubmit(newUser);
-            db.SubmitChanges();
-
-            // ======================
-            // Update Registered User
-            // ======================
-            var mstUsersData = from d in db.MstUsers
-                               where d.Id == newUser.Id
-                               select d;
-
-            if (mstUsersData.Any())
-            {
-                var updateMstUsersData = mstUsersData.FirstOrDefault();
-                updateMstUsersData.EntryUserId = newUser.Id;
-                updateMstUsersData.EntryDateTime = DateTime.Now;
-                updateMstUsersData.UpdateUserId = newUser.Id;
-                updateMstUsersData.UpdateDateTime = DateTime.Now;
-                updateMstUsersData.IsLocked = true;
-
+                var updateCurrentUser = currentUser.FirstOrDefault();
+                updateCurrentUser.AspNetUserId = registeredAspUserId;
                 db.SubmitChanges();
             }
 
