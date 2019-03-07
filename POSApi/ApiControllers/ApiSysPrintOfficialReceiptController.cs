@@ -34,7 +34,7 @@ namespace POSApi.ApiControllers
 
                 PrinterSettings ps = new PrinterSettings
                 {
-                    PrinterName = "EPSON TM-T81 Receipt"
+                    PrinterName = Settings.kitchenReportDefaultPrinterName
                 };
 
                 PrintDocument pd = new PrintDocument();

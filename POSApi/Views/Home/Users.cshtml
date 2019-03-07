@@ -1,4 +1,4 @@
-﻿<h2>Users</h2>
+﻿<h2>iPOS Tab Registered Users</h2>
 <hr />
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -165,7 +165,7 @@
 
     function createUserFlexGrid() {
         userCollectionView = new wijmo.collections.CollectionView(getUserData());
-        userCollectionView.pageSize = 10;
+        //userCollectionView.pageSize = 10;
 
         var filterText = '';
         $('#inpSearchUsername').keyup(function () {
