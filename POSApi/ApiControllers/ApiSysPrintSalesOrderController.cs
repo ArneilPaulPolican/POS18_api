@@ -266,7 +266,7 @@ namespace POSApi.ApiControllers
                                 Size = new Size(150, ((int)graphics.MeasureString(qtyData, fontArial8Regular, 150, StringFormat.GenericTypographic).Height))
                             };
                             graphics.DrawString(qtyData, fontArial8Regular, Brushes.Black, qtyDataRectangle, drawFormatRight);
-                            y += qtyDataRectangle.Size.Height;
+                            y += graphics.MeasureString(itemData, fontArial8Regular, 150, StringFormat.GenericTypographic).Height + 5.0F;
 
                             salesLine.IsPrinted = true;
                             db.SubmitChanges();
@@ -294,7 +294,7 @@ namespace POSApi.ApiControllers
                     // ========
                     // Order By
                     // ========
-                    String orderByLabel = "Order By:";
+                    String orderByLabel = "Ordered By:";
                     RectangleF orderByLabelRectangle = new RectangleF
                     {
                         X = x,

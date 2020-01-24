@@ -7,6 +7,6 @@ namespace POSApi
 {
     public class Settings
     {
-        public static String kitchenReportDefaultPrinterName = "POS-80(copy of 1)";
+        public static String kitchenReportDefaultPrinterName = "EPSON TM-U220 Receipt";
     }
 }
